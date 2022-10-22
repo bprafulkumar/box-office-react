@@ -1,17 +1,19 @@
 import React from "react"
 import { Route , Routes  } from "react-router-dom"
+import Nav from "./components/Nav"
+import Home from "./pages/Home";
+import Starred from "./pages/Starred";
 
 
 function App() {
   return (
+    <div>
+      <Nav/>
     <Routes>
-      <Route  path="/" element={"Prafulkumar"}/>
-      <Route  path="/name" element={"DUDE"}/>
-      <Route  path="/tools" element={"Powerpack"}/>
-      <Route  element={"404 ERROR"}/>
-
-      
+      <Route  path="/" element={<Home/>}/>
+      <Route  path="/starred" element={<Starred/>}/>
     </Routes>
+    </div>
   );
 }
 
