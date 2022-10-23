@@ -1,5 +1,7 @@
 import React, {useState} from "react";
+import ActorGrid from "../components/actor/actorGrid";
 import MainpageLayout from "../components/MainpageLayout";
+import ShowGrid from "../components/show/showGrid";
 import { apiget } from "../misc/config";
 
 const Home = () => {
@@ -16,6 +18,7 @@ const Home = () => {
         // fetch(`https://api.tvmaze.com/search/shows?q=${input}`).then((res) => res.json()).then((result) => 
         // setResults(result))
     }
+    
 
     const onInputChange = (e) => {
         SetInput(e.target.value)
@@ -39,11 +42,10 @@ const Home = () => {
         }
 
         if(results && results.length > 0){
-                return results[0].show ? <div>{results.map((items)=>
-                <div key={items.show.id}>{items.show.name}</div>)}
-                </div> : <div>{results.map((items)=>
-                <div key={items.person.id}>{items.person.name}</div>)}
-                </div>
+                return (results[0].show ? 
+
+                <ShowGrid data={results}/> : <ActorGrid data={results}/>
+                )
         }
         return null
     }
@@ -53,11 +55,11 @@ const Home = () => {
             <input type="text" onChange={onInputChange} value={input} onKeyDown={onKeyDown} placeholder="Search for Something" ></input>
 
             <div>
-                <label>MOVIE
+                <label htmlFor="shows">MOVIE
                 <input id="shows-search" type="radio" value="shows" onChange={onRadiochange} checked={isShowsinput}></input>
                 </label>
 
-                <label>ACTORS
+                <label htmlFor="people">ACTORS
                 <input id="actors-search" type="radio" value="people" onChange={onRadiochange} checked ={!isShowsinput} ></input>
                 </label>
             </div>
