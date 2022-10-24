@@ -18,7 +18,7 @@ const Home = () => {
         // fetch(`https://api.tvmaze.com/search/shows?q=${input}`).then((res) => res.json()).then((result) => 
         // setResults(result))
     }
-    
+
 
     const onInputChange = (e) => {
         SetInput(e.target.value)
