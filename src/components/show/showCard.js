@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { StyledSearchcard } from "../show/showCard.styled";
+import { Star } from '../styled';
+
+
+
 const ShowCard = (props) => {
   const summaryAsText = props.summary
     ? `${props.summary.split(' ').slice(0, 10).join(' ').replace(/<.+?>/g, '')}...`
@@ -18,7 +22,7 @@ const ShowCard = (props) => {
 
       <div className='btns'>
         <Link to={`/show/${props.id}`}>Read more</Link>
-        <button type="button">Star me</button>
+        <button type="button" onClick={props.onStarClick}><Star active={props.isStarred}/></button>
       </div>
     </StyledSearchcard>
   );

@@ -11,7 +11,7 @@ const ShowMainData = (props) => {
         <Headline>
           <h1>{props.name}</h1>
           <div>
-            <Star />
+            <Star active/>
             <span>{props.rating.average || 'N/A'}</span>
           </div>
         </Headline>
