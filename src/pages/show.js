@@ -1,65 +1,20 @@
-import React, { useEffect,useReducer } from "react";
+import React from "react";
 
 import { useParams } from "react-router";
 import Cast from "../components/show/cast";
 import Details from "../components/show/Details";
 import Seasons from "../components/show/seasons";
 import ShowMainData from "../components/show/showMainData";
-import { apiget } from "../misc/config";
 
+import { useShow } from "../misc/custom-hook";
 
-const reducer = (prevState,action) => {
-    switch (action.type) {
-        case "FETCH_SUCCESSFUL":
-            return {isLoading:false,error:null, show:action.show}
-        
-        case "FETCH_FAILURE":
-            return {...prevState , isLoading:false , error : action.error}
-    
-        default: return prevState
-           
-    }
-}
-
-const Intialvalue = {
-    show:null,
-    isLoading : true ,
-    error : true
-}
 
 
 const Showpage = () => {
-
-
-    const [{show, isLoading, error}, dispatch] = useReducer(reducer, Intialvalue)
-
-    console.log(show)
     
-    // const [show , setShow] = useState(null)
-    // const [isLoading , setIsLoading] = useState(true)
-    // const [error , setError] = useState(null)
-
     const { id } = useParams()
-    // console.log(Params)
-    useEffect(() => {
-
-        let isMount = true
-        apiget(`/shows/${id}?embed[]=seasons&embed[]=cast`).then((result)=>{
-            if(isMount){
-                dispatch({type: "FETCH_SUCCESSFUL", show:result})
-        }
-
-        }).catch((err) => {
-            if(isMount){
-                dispatch({type: "FETCH_FAILURE", error:err.message})
-                // setError(err.message)
-                // setIsLoading(false)
-            }
-        })
-        return () => {
-            isMount =false
-        }
-    },[id])
+    const {show, isLoading, error} = useShow(id)
+    
         
      if(isLoading) {
             return <div>The data is rendered</div>
