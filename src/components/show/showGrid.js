@@ -4,15 +4,15 @@ import IMAGE_NOT_FOUND from "../../images/not-found.png"
 import { FlexGrid } from "../styled";
 import { useShows } from "../../misc/custom-hook";
 
-const ShowGrid = (props) => {
+const ShowGrid = ({data}) => {
 
     const [starredShow , dispatchStarred] = useShows()
 
     return(
         <FlexGrid>
         {
-          props.data.map((value) => {
-
+          data && data.map((value) => {
+        
             const isStarred = starredShow.includes(value.show.id)
 
             const onStarClick = () =>{
