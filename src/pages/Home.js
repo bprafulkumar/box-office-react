@@ -4,6 +4,9 @@ import MainpageLayout from "../components/MainpageLayout";
 import ShowGrid from "../components/show/showGrid";
 import { apiget } from "../misc/config";
 import { useLastQuery } from "../misc/custom-hook";
+import { SearchInput, SearchButtonWrapper,RadioInputsWrapper } from "./Home.styled";
+import { CustomRadio } from "../components/CustomRadio"
+
 
 const Home = () => {
 
@@ -13,9 +16,9 @@ const Home = () => {
     const isShowsinput= searchOptions === "shows"
     
     const onSearch = () => {
-        apiget(`/search/${searchOptions}?q=${input}`).then((result) =>
-        setResults(result))
-
+        apiget(`/search/${searchOptions}?q=${input}`).then(result => {
+        setResults(result)
+        })
         // fetch(`https://api.tvmaze.com/search/shows?q=${input}`).then((res) => res.json()).then((result) => 
         // setResults(result))
     }
@@ -52,20 +55,34 @@ const Home = () => {
     }
     return(
         <div>
-           <MainpageLayout> THIS IS THE HOME PAGE </MainpageLayout>
-            <input type="text" onChange={onInputChange} value={input} onKeyDown={onKeyDown} placeholder="Search for Something" ></input>
+           <MainpageLayout/>
+            <SearchInput type="text" onChange={onInputChange} value={input} onKeyDown={onKeyDown} placeholder="Search for Something" ></SearchInput>
 
-            <div>
-                <label htmlFor="shows">MOVIE
-                <input id="shows-search" type="radio" value="shows" onChange={onRadiochange} checked={isShowsinput}></input>
-                </label>
+            <RadioInputsWrapper>
+                <div> 
+                    <CustomRadio 
+                        label = "Shows"
+                        value="shows" 
+                        id="shows-search" 
+                        checked={isShowsinput}
+                        onChange={onRadiochange} 
+                    />
+                </div>
 
-                <label htmlFor="people">ACTORS
-                <input id="actors-search" type="radio" value="people" onChange={onRadiochange} checked ={!isShowsinput} ></input>
-                </label>
-            </div>
+                <div>
+                    <CustomRadio 
+                        label = "Actor"
+                        id="actors-search" 
+                        value="people" 
+                        checked={!isShowsinput}
+                        onChange={onRadiochange} 
+                    />
+                </div>
+            </RadioInputsWrapper>
 
+            <SearchButtonWrapper>
             <button type="button" onClick={onSearch}>SEARCH</button>
+            </SearchButtonWrapper>
            {
             renderItems()
            }
